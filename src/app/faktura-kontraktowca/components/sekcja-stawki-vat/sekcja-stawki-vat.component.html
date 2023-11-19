@@ -78,6 +78,9 @@
               <mat-error *ngIf="podatekFormLista.at(i).get('kwotaBrutto')?.hasError('incorrect')">
                 Kwota Brutto - Vat, Netto się <strong>NIE</strong> zgadzają
               </mat-error>
+              <mat-error *ngIf="podatekFormLista.at(i).get('kwotaBrutto')?.hasError('limit')">
+                Kwota Brutto powyżej dopuszczalnej kwoty <strong>{{limitSumyTotal}}</strong>
+              </mat-error>
 <!--              <mat-error *ngIf="podatekFormLista.at(i).get('kwotaBrutto')?.hasError('valid2')">-->
 <!--                Kwota Brutto - Vat, Netto  się zgadzają-->
 <!--              </mat-error>-->

@@ -15,6 +15,7 @@ import {podatekWyliczeniaLista, stawkaVAT} from "../../../models/faktura-kontrak
 import {MatSelectChange} from "@angular/material/select";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {FakturaFormControl} from "../../../models/faktura-form-control";
+import {LimitValidator} from "../../../models/limit-validator";
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -96,6 +97,7 @@ export class SekcjaStawkiVATComponent implements OnInit {
   customValidator(name: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       let controlForm = control["_parent"]
+      // console.log("cf", controlForm)
 
       if (controlForm) {
         let stawkaVAT = this.fakturyService.convertToFloat(controlForm.get("stawkaVAT")?.value)
@@ -134,7 +136,7 @@ export class SekcjaStawkiVATComponent implements OnInit {
       "stawkaVAT": new FakturaFormControl('Stawka VAT',"stawkaVAT",null , Validators.required),
       "kwotaNetto":new FakturaFormControl('Kwota netto',"kwotaNetto",this.fakturyService.convertInput(0) , [Validators.required,this.customValidator('kwotaNetto')]),
       "kwotaVAT":new FakturaFormControl('Kwota VAT',"kwotaVAT",this.fakturyService.convertInput(0) , [Validators.required,this.customValidator('kwotaVAT')]),
-      "kwotaBrutto":new FakturaFormControl('Kwota Brutto',"kwotaBrutto",this.fakturyService.convertInput(0) , [Validators.required,this.customValidator('kwotaBrutto')])
+      "kwotaBrutto":new FakturaFormControl('Kwota Brutto',"kwotaBrutto",this.fakturyService.convertInput(0) , [Validators.required,this.customValidator('kwotaBrutto') , LimitValidator.limitValidator(0, this.limitSumyTotal)])
     }, {updateOn: 'change'})
 
     this.podatekFormLista.push(podatekForm)
