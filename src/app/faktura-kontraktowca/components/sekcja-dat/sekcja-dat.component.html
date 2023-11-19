@@ -1,0 +1,41 @@
+<ng-container [formGroup]="fakturaKontraktowca">
+  <div class="row" [ngClass]="{'alternate-theme': fakturaKontraktowca.get('dataWystawienia')?.value === null}">
+    <div class="col">
+      <mat-form-field class="full-width" >
+        <mat-label>Data wystawienia</mat-label>
+        <input formControlName="dataWystawienia" matInput [matDatepicker]="picker1">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="fakturaKontraktowca.controls['dataWystawienia'].hasError('required')">
+          Data wystawienia jest <strong>wymaganym polem</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" [ngClass]="{'alternate-theme': fakturaKontraktowca.get('dataDostawy')?.value === null}">
+    <div class="col">
+      <mat-form-field class="full-width" >
+        <mat-label>Data dostawy</mat-label>
+        <input formControlName="dataDostawy" matInput [matDatepicker]="picker2">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="fakturaKontraktowca.controls['dataDostawy'].hasError('required')">
+          Data dostawy jest <strong>wymaganym polem</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" [ngClass]="{'alternate-theme': fakturaKontraktowca.get('terminPlatnosci')?.value === null}">
+    <div class="col">
+      <mat-form-field class="full-width " color="primary" >
+        <mat-label>Termin płatności</mat-label>
+        <input formControlName="terminPlatnosci" color="primary" class="custom-input" matInput [matDatepicker]="picker3">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+        <mat-error *ngIf="fakturaKontraktowca.controls['terminPlatnosci'].hasError('required')">
+          Termin płatności jest <strong>wymaganym polem</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</ng-container>

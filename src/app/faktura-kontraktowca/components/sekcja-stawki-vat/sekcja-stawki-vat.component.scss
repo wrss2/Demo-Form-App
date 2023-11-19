@@ -1,0 +1,116 @@
+@import './../../../ui-components/styles/styles_global';
+
+:host{}
+
+.stawki-vat-form {
+  .mat-cell, .mat-footer-cell {
+    border-bottom: 0;
+    font-size: 1rem;
+  }
+
+  .mat-header-cell {
+    border-bottom: 0;
+    font-weight: bold;
+    color: black;
+    font-size: 1rem;
+  }
+
+  td.mat-footer-cell {
+    .multiline-cell {
+      width: calc(100%);
+      padding: 10px 0;
+
+      .button-line {
+        margin-bottom: 5px;
+        .empty {
+          height: 36px;
+        }
+      }
+
+      .first-line {
+        margin-bottom: 5px;
+        text-align: right;
+      }
+
+      .second-line {
+        font-weight: bold;
+        color: black;
+        text-align: right;
+        &.danger{
+          color:red;
+        }
+      }
+    }
+
+    &:first-of-type {
+      .multiline-cell {
+        width: calc(100% - 70px);
+
+        .button-line {
+          .empty{ }
+        }
+
+        .first-line {
+          text-align: left;
+        }
+
+        .second-line {
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  td.mat-cell,
+  td.mat-footer-cell {
+    text-align: right !important;
+
+    &:first-of-type {
+      text-align: left !important;
+      padding-left: 0 !important;
+    }
+
+    &:last-of-type {
+      padding-right: 0 !important;
+      text-align: center !important;
+    }
+  }
+
+  th.mat-header-cell {
+    text-align: right !important;
+
+    &:first-of-type {
+      text-align: right !important;
+      padding-left: 0 !important;
+      padding-right: 70px;
+    }
+
+    &:last-of-type {
+      padding-right: 0 !important;
+      text-align: center !important;
+    }
+  }
+
+  .mat-row {
+    .mat-cell {
+      .mat-form-field {
+        font-size: 1rem;
+        width: calc(100% - 10px);
+      }
+
+      &:first-of-type {
+        .mat-form-field {
+          width: calc(100% - 70px);
+        }
+      }
+    }
+  }
+
+  .validation-marker{
+    vertical-align: middle;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2px;
+  }
+}

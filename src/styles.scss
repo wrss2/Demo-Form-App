@@ -1,0 +1,123 @@
+﻿@use '@angular/material' as mat;
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/theming';
+@include mat-core();
+@import 'mat-palette-gen.scss';
+
+$primary-color: black; // #FE9105;
+$accent-color: #1976d2;
+
+$primary-color2: #FE9105; // #FE9105;
+$accent-color2: #1976d2;
+
+$primary-palette: createPalette($primary-color);
+$accent-palette: createPalette($accent-color);
+
+$warn: mat-palette($mat-red);
+$primary: mat-palette($primary-palette);
+$accent: mat-palette($accent-palette);
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+
+.alternate-theme {
+  $alternate-primary:  mat-palette($mat-grey, 800, 700, 900);
+  $alternate-accent: mat-palette($mat-blue);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+  @include angular-material-theme($alternate-theme);
+
+  .mat-form-field-underline {
+    background-color: mat-color(mat.$orange-palette, 500) !important; // $amber-palette
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-label {
+    color: mat-color(mat.$orange-palette, 500);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+html, body {
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto;
+  font-size: 16px;
+}
+
+.container{
+  width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  .title{
+    margin-left: 15px;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.bold{
+  font-weight: bold;
+  color: black;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 8px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.layout-row {
+  flex-direction: row;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-card-header-text {
+  margin: 0 !important;
+}
+
+.content-card {
+  min-width: 120px;
+  margin: 20px auto;
+}
+
+.mat-card-actions {
+  text-align: right;
+  .mat-raised-button{
+    margin: 0 !important;
+  }
+}
+
+.mat-elevation-z0{
+  margin-bottom: 5px;
+}
+
+.success{
+  color: green;
+}
+
+.danger{
+  color:red;
+}

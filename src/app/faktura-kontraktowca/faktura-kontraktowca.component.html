@@ -1,0 +1,24 @@
+<form [formGroup]="fakturaKontraktowca" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="content-card mat-elevation-z0">
+    <mat-card-header>
+      <mat-card-title>Faktura kontraktowca</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <app-form-input [fg]="fakturaKontraktowca" [form]="fakturaKontraktowca" [placeholder]="'NIP'" [formCN]="'nip'" [typ]="'text'"></app-form-input>
+          </div>
+          <div class="col">
+            <app-form-input [fg]="fakturaKontraktowca" [form]="fakturaKontraktowca" [placeholder]="'Waluta'" [formCN]="'waluta'" [typ]="'text'"></app-form-input>
+          </div>
+        </div>
+        <app-sekcja-stawki-vat (validFormStatus)="changeFormStatus($event)"  [dataSource]="dataSource" [fakturaKontraktowca]="fakturaKontraktowca"></app-sekcja-stawki-vat>
+        <app-sekcja-dat [fakturaKontraktowca]="fakturaKontraktowca" ></app-sekcja-dat>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="secondary" type="button" >Usuń</button>
+      <button mat-raised-button color="secondary" type="submit" >Zapisz</button>
+      <button mat-raised-button color="secondary" [disabled]="!isValidForm" type="submit">Zapisz i wyslij zatwierdzenie</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

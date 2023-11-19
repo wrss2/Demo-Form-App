@@ -1,0 +1,6 @@
+<mat-form-field [formGroup]="fg"  class="full-width">
+  <input matInput placeholder="{{placeholder}}" type="{{typ}}" formControlName="{{formCN}}">
+  <mat-error *ngIf="form.controls[formCN].hasError('required')">
+    {{placeholder}} jest <strong>wymaganym polem</strong>
+  </mat-error>
+</mat-form-field>
