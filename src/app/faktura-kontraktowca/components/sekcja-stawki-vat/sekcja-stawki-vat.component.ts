@@ -96,7 +96,6 @@ export class SekcjaStawkiVATComponent implements OnInit {
   customValidator(name: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       let controlForm = control["_parent"]
-      console.log("control",control)
 
       if (controlForm) {
         let stawkaVAT = this.fakturyService.convertToFloat(controlForm.get("stawkaVAT")?.value)
@@ -140,7 +139,6 @@ export class SekcjaStawkiVATComponent implements OnInit {
 
     this.podatekFormLista.push(podatekForm)
     this.dataSource = new MatTableDataSource(this.podatekFormLista.controls)
-    console.log("form", this.fakturaKontraktowca)
   }
 
   onRemoveRow(index: number): void {
