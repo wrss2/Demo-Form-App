@@ -14,6 +14,7 @@ import {debounceTime, distinctUntilChanged, map, Observable, of} from "rxjs";
 import {podatekWyliczeniaLista, stawkaVAT} from "../../../models/faktura-kontraktowca"
 import {MatSelectChange} from "@angular/material/select";
 import {ErrorStateMatcher} from "@angular/material/core";
+import {FakturaFormControl} from "../../../models/faktura-form-control";
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -95,6 +96,8 @@ export class SekcjaStawkiVATComponent implements OnInit {
   customValidator(name: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       let controlForm = control["_parent"]
+      console.log("control",control)
+
       if (controlForm) {
         let stawkaVAT = this.fakturyService.convertToFloat(controlForm.get("stawkaVAT")?.value)
         let kwotaNetto = this.fakturyService.convertToFloat(controlForm.get("kwotaNetto")?.value)
@@ -129,14 +132,15 @@ export class SekcjaStawkiVATComponent implements OnInit {
 
   onAddRow() {
     let podatekForm = this.fb.group({
-      "stawkaVAT": [null, Validators.required],
-      "kwotaNetto": [this.fakturyService.convertInput(0), [Validators.required, this.customValidator('kwotaNetto')]],
-      "kwotaVAT": [this.fakturyService.convertInput(0), [Validators.required, this.customValidator('kwotaVAT')]],
-      "kwotaBrutto": [this.fakturyService.convertInput(0), [Validators.required, this.customValidator('kwotaBrutto')]]
+      "stawkaVAT": new FakturaFormControl('Stawka VAT',"stawkaVAT",null , Validators.required),
+      "kwotaNetto":new FakturaFormControl('Kwota netto',"kwotaNetto",this.fakturyService.convertInput(0) , [Validators.required,this.customValidator('kwotaNetto')]),
+      "kwotaVAT":new FakturaFormControl('Kwota VAT',"kwotaVAT",this.fakturyService.convertInput(0) , [Validators.required,this.customValidator('kwotaVAT')]),
+      "kwotaBrutto":new FakturaFormControl('Kwota Brutto',"kwotaBrutto",this.fakturyService.convertInput(0) , [Validators.required,this.customValidator('kwotaBrutto')])
     }, {updateOn: 'change'})
 
     this.podatekFormLista.push(podatekForm)
     this.dataSource = new MatTableDataSource(this.podatekFormLista.controls)
+    console.log("form", this.fakturaKontraktowca)
   }
 
   onRemoveRow(index: number): void {
