@@ -13,7 +13,7 @@ export class FakturyService {
   private readonly _podatekFormLista = new Subject<FormArray>();
   private readonly _fakturaContents = new Subject<podatekWyliczeniaLista>();
   fakturaContents$ = this._fakturaContents.asObservable();
-  podatekFormLista$ = this._fakturaContents.asObservable();
+  podatekFormLista$ = this._podatekFormLista.asObservable();
 
   private url = "http://localhost:4200/Faktura"
   private headers = new HttpHeaders({
