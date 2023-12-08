@@ -12,6 +12,7 @@ export class CatsListComponent implements OnInit {
   numberOfFacts = 20;
   loading = false;
   catFacts: string[] = [];
+  catsFacts2$!: Observable<string[]>
  constructor(private catsService: CatsService) { }
 
   onScroll(event:Event): void {
@@ -35,13 +36,14 @@ export class CatsListComponent implements OnInit {
   loadCatFacts() {
     this.loading = true;
     this.catsService.getCatFacts(this.numberOfFacts).pipe(
-      map(data => data.data),
       distinct(cataText => cataText),
-    ).subscribe((data) => {
-      this.catFacts = [...new Set(this.catFacts.concat(data))];
-      this.loading = false;
-      console.log("Liczba faktów", this.catFacts.length)
-    });
+      map(data => [...new Set(this.catFacts.concat(data.data))]),
+      map(data => this.catFacts = data),
+      finalize(() => {
+        this.loading = false;
+        console.log("Liczba faktów", this.catFacts.length)
+      })
+    ).subscribe()
   }
 
 

@@ -7,6 +7,19 @@
     padding-left: 18px;
     height: 600px;
     overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      border-radius:5px;
+    }
     li{
       line-height: 2rem;
     }
