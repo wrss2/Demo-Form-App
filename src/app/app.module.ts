@@ -35,6 +35,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import {AuthGuard} from "./services/auth.guard";
 import {AuthService} from "./services/auth.service";
 import {HttpInterceptorService} from "./services/http-interceptor.service";
+import { CatsListComponent } from './cats-list/cats-list.component';
+import {CatsService} from "./services/cats.service";
 
 registerLocaleData(localePl, 'pl');
 
@@ -58,7 +60,8 @@ export const CUSTOM_DATE_FORMATS = {
     FormInputComponent,
     SekcjaDatComponent,
     SekcjaStawkiVATComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    CatsListComponent
   ],
   imports: [
     CommonModule,
@@ -89,6 +92,7 @@ export const CUSTOM_DATE_FORMATS = {
     DatePipe,
     AuthGuard,
     AuthService,
+    CatsService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     { provide: LOCALE_ID, useValue: 'pl' },
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },

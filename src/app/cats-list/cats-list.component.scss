@@ -1,0 +1,14 @@
+
+
+.cats-list{
+  margin-top: 50px;
+  ul{
+    //list-style-type: space-counter;
+    padding-left: 18px;
+    height: 600px;
+    overflow-x: auto;
+    li{
+      line-height: 2rem;
+    }
+  }
+}

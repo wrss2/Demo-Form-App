@@ -3,6 +3,7 @@
     <div layout="row" class="fill-height layout-row flex">
       <span class="title">Demo App</span>
       <span class="spacer"></span>
+      <button *ngIf='isLogin$ | async '  routerLink="/koty" mat-button aria-label="Link">Koty</button>
       <button *ngIf='isLogin$ | async '  routerLink="/faktura" mat-button aria-label="Link">Faktura</button>
       <button *ngIf='isLogin$ | async' (click)="logout()"   mat-button aria-label="Link">Logout</button>
     </div>

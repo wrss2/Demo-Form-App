@@ -1,0 +1,9 @@
+<div  class="cats-list" *ngIf="catFacts">
+  <p><strong>Facts About Cat Health &amp; Wellness.</strong>  Number facts <strong>{{catFacts?.length}}</strong>. </p>
+  <ul (scroll)="onScroll($event)" class="cats-facts">
+    <li  *ngFor="let fact of catFacts">
+      {{ fact }}
+    </li>
+  </ul>
+  <div *ngIf="loading">Loading...</div>
+</div>
