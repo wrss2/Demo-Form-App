@@ -37,8 +37,7 @@ export class CatsListComponent implements OnInit {
     this.loading = true;
     this.catsService.getCatFacts(this.numberOfFacts).pipe(
       distinct(cataText => cataText),
-      map(data => [...new Set(this.catFacts.concat(data.data))]),
-      map(data => this.catFacts = data),
+      map(data => this.catFacts =  [...new Set(this.catFacts.concat(data.data))]),
       finalize(() => {
         this.loading = false;
         console.log("Liczba faktów", this.catFacts.length)
