@@ -13,6 +13,11 @@ export class FakturaFormControl extends FormControl {
 
 }
 
+export interface User {
+  username?: string;
+  password?: string;
+}
+
 
 export class FakturaFormGroup extends FormGroup {
 

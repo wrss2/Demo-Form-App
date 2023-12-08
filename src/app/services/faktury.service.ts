@@ -15,7 +15,7 @@ export class FakturyService {
   fakturaContents$ = this._fakturaContents.asObservable();
   podatekFormLista$ = this._podatekFormLista.asObservable();
 
-  private url = "http://localhost:4200/Faktura"
+  private url = "http://localhost:4200/faktura"
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${Math.floor(Math.random()*10**36)}`

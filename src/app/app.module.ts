@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import {FakturaKontraktowcaComponent} from './faktura-kontraktowca/faktura-kontraktowca.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldControl} from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -31,6 +31,10 @@ import { SekcjaDatComponent } from './faktura-kontraktowca/components/sekcja-dat
 import { SekcjaStawkiVATComponent } from './faktura-kontraktowca/components/sekcja-stawki-vat/sekcja-stawki-vat.component';
 import {ToastrModule} from "ngx-toastr";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { LoginPageComponent } from './login-page/login-page.component';
+import {AuthGuard} from "./services/auth.guard";
+import {AuthService} from "./services/auth.service";
+
 registerLocaleData(localePl, 'pl');
 
 export const CUSTOM_DATE_FORMATS = {
@@ -52,7 +56,8 @@ export const CUSTOM_DATE_FORMATS = {
     LocaleStringPipe,
     FormInputComponent,
     SekcjaDatComponent,
-    SekcjaStawkiVATComponent
+    SekcjaStawkiVATComponent,
+    LoginPageComponent
   ],
   imports: [
     CommonModule,
@@ -81,6 +86,8 @@ export const CUSTOM_DATE_FORMATS = {
     FakturyService,
     DecimalPipe,
     DatePipe,
+    AuthGuard,
+    AuthService,
     { provide: LOCALE_ID, useValue: 'pl' },
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

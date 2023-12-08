@@ -72,10 +72,14 @@ export class SekcjaStawkiVATComponent implements OnInit {
 
 
   sumaKwota(kwotaRodzaj: string) {
-    const suma = this.podatekFormLista.controls
-      .map(control => control.get(kwotaRodzaj)?.value)
+    let suma = this.podatekFormLista.controls
+      .map(control => {
+        console.log("kwotaRodzaj", control.get(kwotaRodzaj)?.value)
+        return  control.get(kwotaRodzaj)?.value
+      })
       .reduce((acc, value) => acc + (this.fakturyService.convertToFloat(value) || 0), 0)
     this.fakturaKontraktowca.get(`${kwotaRodzaj}Suma`)?.setValue(this.fakturyService.convertInput(suma), {emitEvent: false});
+    console.log("suma", suma, kwotaRodzaj)
     if (kwotaRodzaj == "kwotaBrutto") {
       if (suma > this.limitSumyTotal) {
         let limitWyswietl = this.fakturyService.convertInput(this.limitSumyTotal)
@@ -241,9 +245,10 @@ export class SekcjaStawkiVATComponent implements OnInit {
   wyliczanieFormularza() {
     this.podatekFormLista?.valueChanges.pipe(
       debounceTime(1000),
-      distinctUntilChanged()
+ //     distinctUntilChanged()
     )
     .subscribe((value) => {
+      console.log("suma")
       this.multiSumaKolumn()
     });
   }

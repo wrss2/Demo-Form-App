@@ -1,4 +1,5 @@
 ﻿@use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~@angular/material/theming';
 @include mat-core();
@@ -32,6 +33,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .mat-form-field-appearance-legacy .mat-form-field-label {
     color: mat-color(mat.$orange-palette, 500);
+  }
+  .primary{
+    background-color: mat-color(mat.$orange-palette, 500);
   }
 }
 
@@ -120,4 +124,9 @@ body {
 
 .danger{
   color:red;
+}
+
+.primary{
+  color: white;
+  background-color: mat-color(mat.$orange-palette, 500);
 }
