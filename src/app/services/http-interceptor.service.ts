@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
-import {HttpInterceptor} from "@angular/common/http";
+import {HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {catchError, throwError} from "rxjs";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpInterceptorService  implements HttpInterceptor{
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
-  intercept(req, next) {
-    console.log("req", req)
-    console.log("next", next)
-    return next.handle(req);
+  intercept(request: HttpRequest<any>, next: HttpHandler) {
+    console.log("Interceptor req", request)
+    console.log("Interceptor next", next)
+    return next.handle(request).pipe(catchError(err => {
+      if (err.status === 401) {
+        this.authService.logout();
+        location.reload();
+      }
+
+      const error = err.error.message || err.statusText;
+      return throwError(error);
+    }));
+
   }
 }

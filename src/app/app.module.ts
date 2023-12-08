@@ -22,7 +22,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MomentDateAdapter, MomentDateModule} from "@angular/material-moment-adapter";
 import {CommonModule, DatePipe, DecimalPipe} from "@angular/common";
 import {FakturyService} from "./services/faktury.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LocaleStringPipe} from './pipes/locale-string-pipe.pipe';
 import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
@@ -34,6 +34,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { LoginPageComponent } from './login-page/login-page.component';
 import {AuthGuard} from "./services/auth.guard";
 import {AuthService} from "./services/auth.service";
+import {HttpInterceptorService} from "./services/http-interceptor.service";
 
 registerLocaleData(localePl, 'pl');
 
@@ -88,6 +89,7 @@ export const CUSTOM_DATE_FORMATS = {
     DatePipe,
     AuthGuard,
     AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     { provide: LOCALE_ID, useValue: 'pl' },
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

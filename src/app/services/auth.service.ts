@@ -7,7 +7,7 @@ import {User} from "../models/faktura-form-control";
 })
 export class AuthService {
 
-  isLoginSubject$ = new BehaviorSubject(false)
+  isLoginSubject$ = new BehaviorSubject<boolean>(false)
   isLogin$ = this.isLoginSubject$.asObservable()
 
   users = [

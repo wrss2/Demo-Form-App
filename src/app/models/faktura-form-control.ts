@@ -13,7 +13,7 @@ export class FakturaFormControl extends FormControl {
 
 }
 
-export interface User {
+export class User {
   username?: string;
   password?: string;
 }
