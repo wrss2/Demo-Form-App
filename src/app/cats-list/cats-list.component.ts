@@ -29,7 +29,7 @@ import {CatsService} from "../services/cats.service";
   styleUrls: ['./cats-list.component.scss'],
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class CatsListComponent implements OnInit, AfterViewInit {
+export class CatsListComponent implements OnInit {
 
   @ViewChild('scrollContainer', {read: ElementRef, static: false}) scrollContainer!: ElementRef<HTMLElement>;
   numberOfFacts = 20;
@@ -69,30 +69,11 @@ export class CatsListComponent implements OnInit, AfterViewInit {
 
    constructor(
       private catsService: CatsService,
-   ) { }
+   ) {
+   }
 
   ngOnInit(): void {
     this.loadCatFacts();
-  }
-
-
-  ngAfterViewInit() {
-    fromEvent(this.scrollContainer.nativeElement, 'scroll')
-      .pipe(
-        map(() => this.scrollContainer.nativeElement),
-        filter(() => this.isScrolledToBottom()),
-    ).subscribe(()=>{
-      this.loadCatFacts()
-    })
-  }
-
-  isScrolledToBottom(): boolean {
-    const element = this.scrollContainer.nativeElement;
-    let scrollBottom = element.scrollTop + Math.max(element.clientHeight, element.offsetHeight)
-    if(scrollBottom  >= element.scrollHeight && !this.loadingSubject.value) {
-      return true
-    }
-    return false
   }
   loadCatFacts() {
     this.loadingSubject.next(true)

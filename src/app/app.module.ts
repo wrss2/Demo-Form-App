@@ -37,6 +37,7 @@ import {AuthService} from "./services/auth.service";
 import {HttpInterceptorService} from "./services/http-interceptor.service";
 import { CatsListComponent } from './cats-list/cats-list.component';
 import {CatsService} from "./services/cats.service";
+import { InfiniteScrollerDirective } from './directives/infinite-scroller.directive';
 
 registerLocaleData(localePl, 'pl');
 
@@ -61,7 +62,8 @@ export const CUSTOM_DATE_FORMATS = {
     SekcjaDatComponent,
     SekcjaStawkiVATComponent,
     LoginPageComponent,
-    CatsListComponent
+    CatsListComponent,
+    InfiniteScrollerDirective
   ],
   imports: [
     CommonModule,

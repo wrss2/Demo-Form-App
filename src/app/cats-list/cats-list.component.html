@@ -1,7 +1,7 @@
 <div class="cats-list">
   <p><strong>Facts About Cat Health &amp; Wellness.</strong>  Number facts <strong>{{(catsFactsCombined$  | async)?.length}}</strong>. </p>
 <!--  (scroll)="onScroll($event)"-->
-  <ul   class="cats-facts" #scrollContainer>
+  <ul InfiniteScroller [loading$]="loadingSubject" [data$]="catsSubject"  class="cats-facts">
     <li  *ngFor="let fact of catsFactsCombined$  | async">
       {{ fact }}
     </li>
