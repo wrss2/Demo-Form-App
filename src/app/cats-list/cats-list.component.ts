@@ -1,14 +1,10 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {
   BehaviorSubject, catchError,
-  concat,
-  concatAll,
-  concatMap, delay,
   distinct,
   finalize,
   map,
-  Observable, of, reduce, scan, shareReplay,
-  Subject,
+  Observable, of, reduce, scan,
   switchMap,
   tap, throwError
 } from "rxjs";
