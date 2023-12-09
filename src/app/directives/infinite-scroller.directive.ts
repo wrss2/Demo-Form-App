@@ -1,4 +1,4 @@
-import { Directive, AfterViewInit, ElementRef, Input } from '@angular/core';
+import {Directive, AfterViewInit, ElementRef, Input, ViewChild} from '@angular/core';
 import {BehaviorSubject, filter, fromEvent, map} from "rxjs";
 
 @Directive({
@@ -8,8 +8,6 @@ export class InfiniteScrollerDirective implements AfterViewInit {
 
   @Input() data$:BehaviorSubject<any> = new BehaviorSubject<any>([]);
   @Input() loading$:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  @Input() scrollContainer:any;
-
 
   constructor(
     private element: ElementRef

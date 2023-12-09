@@ -31,7 +31,7 @@ import {CatsService} from "../services/cats.service";
 })
 export class CatsListComponent implements OnInit {
 
-  @ViewChild('scrollContainer', {read: ElementRef, static: false}) scrollContainer!: ElementRef<HTMLElement>;
+
   numberOfFacts = 20;
 
   catsSubject = new BehaviorSubject([]);
