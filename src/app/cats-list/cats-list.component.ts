@@ -1,6 +1,27 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {BehaviorSubject, catchError, map, scan, switchMap, tap, throwError} from "rxjs";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  catchError,
+  debounceTime, distinctUntilChanged, endWith, filter, finalize,
+  fromEvent,
+  map,
+  scan,
+  Subscription,
+  switchMap,
+  tap,
+  throwError
+} from "rxjs";
 import {CatsService} from "../services/cats.service";
+
+
 
 @Component({
   selector: 'app-cats-list',
@@ -8,8 +29,9 @@ import {CatsService} from "../services/cats.service";
   styleUrls: ['./cats-list.component.scss'],
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class CatsListComponent implements OnInit {
+export class CatsListComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('scrollContainer', {read: ElementRef, static: false}) scrollContainer!: ElementRef<HTMLElement>;
   numberOfFacts = 20;
 
   catsSubject = new BehaviorSubject([]);
@@ -30,32 +52,51 @@ export class CatsListComponent implements OnInit {
     })
   );
 
- constructor(private catsService: CatsService) { }
+  // onScroll(event:Event): void {
+  //   if(event.type ==='scroll') {
+  //     let cat_facts = document.getElementsByClassName("cats-facts")[0] as HTMLElement
+  //     let cat_facts_scrollHeight = cat_facts.scrollHeight
+  //     let cat_facts_offsetHeight = cat_facts.offsetHeight
+  //     let cat_facts_clientHeight = cat_facts.clientHeight
+  //     let cat_facts_scrollTop = cat_facts.scrollTop
+  //     let scrollBottom = cat_facts_scrollTop + Math.max(cat_facts_clientHeight, cat_facts_offsetHeight)
+  //
+  //     if (scrollBottom + 500 >= cat_facts_scrollHeight && !this.loadingSubject.value) {
+  //      this.loadCatFacts();
+  //     }
+  //   }
+  // }
 
-  onScroll(event:Event): void {
-    if(event.type ==='scroll') {
-      let cat_facts = document.getElementsByClassName("cats-facts")[0] as HTMLElement
-      let cat_facts_scrollHeight = cat_facts.scrollHeight
-      let cat_facts_offsetHeight = cat_facts.offsetHeight
-      let cat_facts_clientHeight = cat_facts.clientHeight
-      let cat_facts_scrollTop = cat_facts.scrollTop
-      let scrollBottom = cat_facts_scrollTop + Math.max(cat_facts_clientHeight, cat_facts_offsetHeight)
-
-      if (scrollBottom + 500 >= cat_facts_scrollHeight && !this.loadingSubject.value) {
-       this.loadCatFacts();
-      }
-    }
-  }
+   constructor(
+      private catsService: CatsService,
+   ) { }
 
   ngOnInit(): void {
     this.loadCatFacts();
   }
 
+
+  ngAfterViewInit() {
+    fromEvent(this.scrollContainer.nativeElement, 'scroll')
+      .pipe(
+        map(() => this.scrollContainer.nativeElement),
+        filter(() => this.isScrolledToBottom()),
+    ).subscribe(()=>{
+      this.loadCatFacts()
+    })
+  }
+
+  isScrolledToBottom(): boolean {
+    const element = this.scrollContainer.nativeElement;
+    let scrollBottom = element.scrollTop + Math.max(element.clientHeight, element.offsetHeight)
+    if(scrollBottom  >= element.scrollHeight && !this.loadingSubject.value) {
+      return true
+    }
+    return false
+  }
   loadCatFacts() {
     this.loadingSubject.next(true)
     this.catsSubject.next([]);
   }
-
-
 
 }
