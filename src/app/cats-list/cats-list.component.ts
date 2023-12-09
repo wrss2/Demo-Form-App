@@ -1,20 +1,12 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {
-  BehaviorSubject, catchError,
-  distinct,
-  finalize,
-  map,
-  Observable, of, reduce, scan,
-  switchMap,
-  tap, throwError
-} from "rxjs";
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {BehaviorSubject, catchError, map, scan, switchMap, tap, throwError} from "rxjs";
 import {CatsService} from "../services/cats.service";
-import {CatFactsResponse} from "../models/faktura-form-control";
 
 @Component({
   selector: 'app-cats-list',
   templateUrl: './cats-list.component.html',
-  styleUrls: ['./cats-list.component.scss']
+  styleUrls: ['./cats-list.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CatsListComponent implements OnInit {
 
