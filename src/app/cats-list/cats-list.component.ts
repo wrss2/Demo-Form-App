@@ -1,6 +1,19 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {concat, concatMap, distinct, finalize, map, Observable, tap} from "rxjs";
+import {
+  BehaviorSubject, catchError,
+  concat,
+  concatAll,
+  concatMap, delay,
+  distinct,
+  finalize,
+  map,
+  Observable, of, reduce, scan, shareReplay,
+  Subject,
+  switchMap,
+  tap, throwError
+} from "rxjs";
 import {CatsService} from "../services/cats.service";
+import {CatFactsResponse} from "../models/faktura-form-control";
 
 @Component({
   selector: 'app-cats-list',
@@ -10,9 +23,25 @@ import {CatsService} from "../services/cats.service";
 export class CatsListComponent implements OnInit {
 
   numberOfFacts = 20;
-  loading = false;
-  catFacts: string[] = [];
-  catsFacts2$!: Observable<string[]>
+
+  catsSubject = new BehaviorSubject([]);
+  catsFactsObservable$ = this.catsSubject.asObservable()
+
+  loadingSubject = new BehaviorSubject(false);
+  loading$ = this.loadingSubject.asObservable()
+
+
+  catsFactsCombined$ = this.catsFactsObservable$.pipe(
+    switchMap(() => this.catsService.getCatFacts(this.numberOfFacts)),
+    map((data)=> data.data),
+    scan<string[], string[]>((accumulatedFacts, newFacts) => [...new Set(    [...accumulatedFacts,...newFacts])], []),
+    tap(() =>   this.loadingSubject.next(false)),
+    catchError(err => {
+      console.log('Error', err);
+      return throwError(err);
+    })
+  );
+
  constructor(private catsService: CatsService) { }
 
   onScroll(event:Event): void {
@@ -24,8 +53,8 @@ export class CatsListComponent implements OnInit {
       let cat_facts_scrollTop = cat_facts.scrollTop
       let scrollBottom = cat_facts_scrollTop + Math.max(cat_facts_clientHeight, cat_facts_offsetHeight)
 
-      if (scrollBottom + 1000 >= cat_facts_scrollHeight && !this.loading) {
-        this.loadCatFacts();
+      if (scrollBottom + 500 >= cat_facts_scrollHeight && !this.loadingSubject.value) {
+       this.loadCatFacts();
       }
     }
   }
@@ -33,18 +62,11 @@ export class CatsListComponent implements OnInit {
   ngOnInit(): void {
     this.loadCatFacts();
   }
-  loadCatFacts() {
-    this.loading = true;
-    this.catsService.getCatFacts(this.numberOfFacts).pipe(
-      distinct(cataText => cataText),
-      map(data => this.catFacts =  [...new Set(this.catFacts.concat(data.data))]),
-      finalize(() => {
-        this.loading = false;
-        console.log("Liczba faktów", this.catFacts.length)
-      })
-    ).subscribe()
-  }
 
+  loadCatFacts() {
+    this.loadingSubject.next(true)
+    this.catsSubject.next([]);
+  }
 
 
 

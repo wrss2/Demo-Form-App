@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {CatFactsResponse} from "../models/faktura-form-control";
 
-interface CatFactsResponse {
-  data: string[];
-}
 
 @Injectable({
   providedIn: 'root'

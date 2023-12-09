@@ -27,3 +27,8 @@ export class FakturaFormGroup extends FormGroup {
   }
 
 }
+
+
+export interface CatFactsResponse {
+  data: string[];
+}
